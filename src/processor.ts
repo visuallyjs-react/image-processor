@@ -205,7 +205,7 @@ export function createProcessor() {
         }, { signal: abort.signal })
 
         async function start() {
-            const response = await fetch(`${baseURL}dataset.json`, { signal: abort.signal })
+            const response = await fetch(`${baseURL}image-processor.json`, { signal: abort.signal })
             if (!response.ok) throw new Error('Could not load the example pipeline.')
             const data = await response.json()
             data.nodes = await Promise.all(data.nodes.map(async (n: Record<string, any>) => {
