@@ -3,9 +3,9 @@ import { SurfaceComponent } from '@visuallyjs/browser-ui-react'
 import { createProcessor } from './processor'
 import { nativeView } from './view-options'
 import './style.css'
-export default function App() {
+export default function App({url}) {
     const root = useRef(null), surfaceRef = useRef(null)
-    const processor = useMemo(() => createProcessor(), [])
+    const processor = useMemo(() => createProcessor(url), [])
     const view = useMemo(() => nativeView(processor.viewOptions), [processor])
     useEffect(() => processor.attach(surfaceRef.current.getSurface(), root.current, import.meta.env.BASE_URL), [processor])
     return <div ref={root}><main className="image-processor">

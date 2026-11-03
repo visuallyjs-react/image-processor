@@ -12,7 +12,7 @@ import { createInspector } from './inspector'
 import { readImageFromFile, imageURLToImage, setCanvasImageFromImage, imageToBlob, imageWidth, imageHeight, isProcessingImage, type ProcessingImage } from './processing'
 
 
-export function createProcessor() {
+export function createProcessor(url:string) {
     let model: BrowserUIModel
     let uploadImage: (id: string) => void = () => {}
     const viewOptions = createView(() => model)
@@ -205,7 +205,7 @@ export function createProcessor() {
         }, { signal: abort.signal })
 
         async function start() {
-            const response = await fetch(`${baseURL}image-processor.json`, { signal: abort.signal })
+            const response = await fetch(url, { signal: abort.signal })
             if (!response.ok) throw new Error('Could not load the example pipeline.')
             const data = await response.json()
             data.nodes = await Promise.all(data.nodes.map(async (n: Record<string, any>) => {
